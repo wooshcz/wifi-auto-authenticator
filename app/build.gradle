@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        release {
+            def props = new Properties()
+            def fileInputStream = new FileInputStream(file('../local.properties'))
+            props.load(fileInputStream)
+            fileInputStream.close()
+            storeFile = file(props['storeFilePath'])
+            storePassword = props['storePassword']
+            keyAlias = props['keyAlias']
+            keyPassword = props['keyPassword']
+        }
+    }
+    compileSdk 33
+    defaultConfig {
+        applicationId 'com.woosh.wifiautoauth'
+        minSdkVersion 23
+        targetSdkVersion 33
+        versionName '2.0.2'
+        versionCode 32
+        buildConfigField("long", "VERSION_CODE", "${defaultConfig.versionCode}")
+        buildConfigField("String", "VERSION_NAME", "\"${defaultConfig.versionName}\"")
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            buildConfigField("boolean", "MOCK_REMOTE_ENDPOINTS", "false")
+        }
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '.debug'
+            buildConfigField("boolean", "MOCK_REMOTE_ENDPOINTS", "true")
+        }
+    }
+    productFlavors {
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    namespace 'com.woosh.wifiautoauth'
+    buildToolsVersion '34.0.0'
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.13.2'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.preference:preference:1.2.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    def work_version = '2.8.1'
+    implementation "androidx.work:work-runtime:$work_version"
+}

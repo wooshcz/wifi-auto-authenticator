@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="autologin"
+        android:summary="@string/pref_autologin_description"
+        android:title="@string/pref_autologin_title" />
+
+    <EditTextPreference
+        android:inputType="textNoSuggestions"
+        android:key="portal_url"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_portalurl_title"
+        android:summary="@string/pref_portalurl_description" />
+
+    <EditTextPreference
+        android:inputType="textNoSuggestions"
+        android:key="username"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_username_title"
+        android:summary="@string/pref_username_description" />
+
+    <EditTextPreference
+        android:inputType="textVisiblePassword"
+        android:key="password"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_password_title"
+        android:summary="@string/pref_password_description" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="expert"
+        android:summary="@string/pref_expert_description"
+        android:title="@string/pref_expert_title" />
+
+</PreferenceScreen>
