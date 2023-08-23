@@ -13,7 +13,8 @@ android {
             keyPassword = props['keyPassword']
         }
     }
-    compileSdk 33
+    compileSdkVersion 33
+    buildToolsVersion '34.0.0'
     defaultConfig {
         applicationId 'com.woosh.wifiautoauth'
         minSdkVersion 23
@@ -44,7 +45,6 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
     namespace 'com.woosh.wifiautoauth'
-    buildToolsVersion '34.0.0'
 }
 
 dependencies {
