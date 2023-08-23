@@ -32,6 +32,7 @@ import androidx.core.os.HandlerCompat;
 import androidx.preference.PreferenceManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
@@ -280,7 +281,7 @@ public class LoginActivity extends AppCompatActivity implements SwipeRefreshLayo
         PeriodicWorkRequest backgroundLoginRequest = new PeriodicWorkRequest.Builder(BackgroundLoginWorker.class, PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MILLISECONDS)
                 .setConstraints(constraints)
                 .build();
-        WorkManager.getInstance(getApplicationContext()).enqueue(backgroundLoginRequest);
+        WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork("backgroundLoginReq", ExistingPeriodicWorkPolicy.KEEP, backgroundLoginRequest);
     }
 
     // callback handler for the LoginLogoutTask
