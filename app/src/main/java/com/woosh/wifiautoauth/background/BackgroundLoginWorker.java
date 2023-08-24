@@ -48,7 +48,7 @@ public class BackgroundLoginWorker extends Worker {
         Util.addToDebugLog("BackgroundLoginWorker.backgroundLogin()");
         Constants.loadPrefs(ctx);
         if (!Constants.PREF_AUTOLOGIN) {
-            Util.addToDebugLog("BackgroundLoginWorker.backgroundLogin() - autologin is: " + Constants.PREF_AUTOLOGIN);
+            Util.addToDebugLog("BackgroundLoginWorker.backgroundLogin() - autologin is switched off");
             return;
         }
         WifiManager wm = (WifiManager) ctx.getApplicationContext().getSystemService(Context.WIFI_SERVICE);

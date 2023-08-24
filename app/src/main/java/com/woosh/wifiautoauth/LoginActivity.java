@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -59,10 +57,12 @@ import java.util.concurrent.TimeUnit;
 // login screen class for Web Login Screen
 public class LoginActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
+    // Other references
+    private static int mColorWarn, mColorGood;
+    private static WifiManager wm;
     // Preferences, listener
     private SharedPreferences sp;
     private SharedPreferences.OnSharedPreferenceChangeListener spChanged;
-
     // UI references.
     private EditText mUsername;
     private EditText mPassword;
@@ -75,10 +75,6 @@ public class LoginActivity extends AppCompatActivity implements SwipeRefreshLayo
     private Button mSignInButton;
     private Button mSignOutButton;
     private ObjectAnimator oa;
-
-    // Other references
-    private static int mColorWarn, mColorGood;
-    private static WifiManager wm;
     private ExecutorService executorService;
     private Handler mainThreadHandler;
 
@@ -382,9 +378,7 @@ public class LoginActivity extends AppCompatActivity implements SwipeRefreshLayo
             mSwipeLayout.setRefreshing(false);
             return;
         }
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo ni = cm.getActiveNetworkInfo();
-        boolean isConnected = ni != null && ni.isConnected();
+        boolean isConnected = NetworkTools.isNetworkAvailable(getApplication());
         String snackMsg = "";
         boolean err = false;
         if (!isConnected) {
