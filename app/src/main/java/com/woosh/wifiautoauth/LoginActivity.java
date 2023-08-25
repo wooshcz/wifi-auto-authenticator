@@ -2,11 +2,9 @@ package com.woosh.wifiautoauth;
 
 import android.Manifest;
 import android.animation.ObjectAnimator;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -59,7 +57,6 @@ public class LoginActivity extends AppCompatActivity implements SwipeRefreshLayo
 
     // Other references
     private static int mColorWarn, mColorGood;
-    private static WifiManager wm;
     // Preferences, listener
     private SharedPreferences sp;
     private SharedPreferences.OnSharedPreferenceChangeListener spChanged;
@@ -131,8 +128,6 @@ public class LoginActivity extends AppCompatActivity implements SwipeRefreshLayo
             Util.addToDebugLog("SharedPreferenceChangeListener: pref changed: " + key + ", new value: " + Objects.requireNonNull(prefs.get(key)));
         };
         sp.registerOnSharedPreferenceChangeListener(spChanged);
-
-        wm = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         executorService = Executors.newFixedThreadPool(1);
         mainThreadHandler = HandlerCompat.createAsync(Looper.getMainLooper());
     }
@@ -232,7 +227,7 @@ public class LoginActivity extends AppCompatActivity implements SwipeRefreshLayo
         Constants.loadPrefs(getApplicationContext());
         mUsername.setText(Constants.PREF_USERNAME);
         mPassword.setText(Constants.PREF_PASSWD);
-        if (NetworkTools.isOnWifi(wm) && Constants.PREF_PORTAL.length() > 0 && Constants.CAPTIVITY_DETECTED != null) {
+        if (NetworkTools.isOnWifi(getApplication().getApplicationContext()) && Constants.PREF_PORTAL.length() > 0 && Constants.CAPTIVITY_DETECTED != null) {
             if (Constants.CAPTIVITY_DETECTED) {
                 setButtonState(mSignInButton, true);
                 setButtonState(mSignOutButton, false);
@@ -384,7 +379,7 @@ public class LoginActivity extends AppCompatActivity implements SwipeRefreshLayo
         if (!isConnected) {
             snackMsg = getString(R.string.message_network_no);
             err = true;
-        } else if (!NetworkTools.isOnWifi(wm)) {
+        } else if (!NetworkTools.isOnWifi(getApplication())) {
             snackMsg = getString(R.string.message_network_wifi);
             err = true;
         }

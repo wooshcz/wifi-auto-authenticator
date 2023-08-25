@@ -1,7 +1,6 @@
 package com.woosh.wifiautoauth.background;
 
 import android.content.Context;
-import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -26,8 +25,8 @@ import java.util.concurrent.Executors;
 public class BackgroundLoginWorker extends Worker {
 
     private final Context ctx;
-    ExecutorService executorService;
     private final Handler mainThreadHandler;
+    ExecutorService executorService;
 
     public BackgroundLoginWorker(@NonNull Context context, @NonNull WorkerParameters params) {
         super(context, params);
@@ -51,8 +50,7 @@ public class BackgroundLoginWorker extends Worker {
             Util.addToDebugLog("BackgroundLoginWorker.backgroundLogin() - autologin is switched off");
             return;
         }
-        WifiManager wm = (WifiManager) ctx.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        if (!NetworkTools.isOnWifi(wm)) {
+        if (!NetworkTools.isOnWifi(ctx.getApplicationContext())) {
             Util.addToDebugLog("BackgroundLoginWorker.backgroundLogin() - WiFi is not active");
             return;
         }

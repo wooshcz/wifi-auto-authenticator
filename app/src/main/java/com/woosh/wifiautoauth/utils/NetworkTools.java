@@ -5,9 +5,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -25,16 +22,12 @@ import java.lang.reflect.Method;
 
 public class NetworkTools {
 
-    public static boolean isOnWifi(WifiManager wm) {
-        if (wm.isWifiEnabled()) {
-            WifiInfo wifiInfo = wm.getConnectionInfo();
-            if (wifiInfo != null) {
-                NetworkInfo.DetailedState state = WifiInfo.getDetailedStateOf(wifiInfo.getSupplicantState());
-                Util.addToDebugLog("NetworkTools.isOnWifi() - state: " + state);
-                return state == NetworkInfo.DetailedState.CONNECTED || state == NetworkInfo.DetailedState.OBTAINING_IPADDR;
-            }
-        }
-        return false;
+    public static boolean isOnWifi(Context ctx) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        Network nw = connectivityManager.getActiveNetwork();
+        if (nw == null) return false;
+        NetworkCapabilities actNw = connectivityManager.getNetworkCapabilities(nw);
+        return (actNw != null && actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI));
     }
 
     public static void setMobileDataState(Context ctx, boolean setMobileData, boolean makeToast) {

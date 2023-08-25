@@ -7,8 +7,8 @@ android {
         applicationId 'com.woosh.wifiautoauth'
         minSdkVersion 23
         targetSdkVersion 33
-        versionName '2.0.3'
-        versionCode 33
+        versionName '2.0.4'
+        versionCode 34
         buildConfigField("long", "VERSION_CODE", "${defaultConfig.versionCode}")
         buildConfigField("String", "VERSION_NAME", "\"${defaultConfig.versionName}\"")
     }
