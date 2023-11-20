@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">WiFi Auto Authenticator</string>
     <string name="app_about">Build: %1$d. Version: %2$s.</string>
+    <string name="app_privacy_policy" translatable="false">Privacy Policy: https://moravek.me/android/wifi-auto-authenticator/#privacy-policy</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
     <string name="action_retry">Retry</string>

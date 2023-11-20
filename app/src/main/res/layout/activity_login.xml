@@ -9,6 +9,7 @@
     tools:context="com.woosh.wifiautoauth.LoginActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -22,14 +23,14 @@
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat">
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/autologin_toggle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|start"
-                    android:checked="false"
-                    android:switchPadding="@dimen/switch_title_padding"
-                    android:text="@string/pref_autologin_title" />
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/autologin_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:checked="false"
+                android:switchPadding="@dimen/switch_title_padding"
+                android:text="@string/pref_autologin_title" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -41,24 +42,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
                 android:focusableInTouchMode="true"
+                android:gravity="center_horizontal"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal|center_vertical"
                     android:layout_margin="@dimen/activity_horizontal_margin"
+                    android:gravity="center_horizontal|center_vertical"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:contentDescription="@string/state_icon"
                         android:id="@+id/state_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_state_working"
-                        android:padding="6dp"/>
+                        android:contentDescription="@string/state_icon"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_state_working" />
 
                     <TextView
                         android:id="@+id/state_text"

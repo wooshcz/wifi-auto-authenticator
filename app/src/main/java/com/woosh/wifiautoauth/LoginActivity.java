@@ -1,5 +1,7 @@
 package com.woosh.wifiautoauth;
 
+import static android.view.View.TEXT_ALIGNMENT_CENTER;
+
 import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.text.util.Linkify;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -205,9 +208,16 @@ public class LoginActivity extends AppCompatActivity implements SwipeRefreshLayo
             NetworkTools.setMobileDataState(this, !dataEnabled, true);
         }
         if (id == R.id.action_about) {
+            TextView textView = new TextView(getApplicationContext());
+            textView.setAutoLinkMask(Linkify.WEB_URLS);
+            textView.setText(R.string.app_privacy_policy);
+            textView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.design_default_color_on_primary));
+            textView.setLinkTextColor(ContextCompat.getColor(getApplicationContext(), R.color.material_dynamic_neutral_variant80));
+            textView.setTextAlignment(TEXT_ALIGNMENT_CENTER);
             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
             builder.setTitle(R.string.app_name);
             builder.setMessage(String.format(Locale.getDefault(), getString(R.string.app_about), BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME));
+            builder.setView(textView);
             builder.setPositiveButton(R.string.action_close, (dialog, which) -> dialog.cancel());
             builder.show();
         }
